@@ -1,0 +1,9 @@
+a module imported was found in multiple packages: both in packageA and packageB?
+
+there are 3 ways to solve it:
+1. ghc-pkg hide packageA.
+This will cause GHC and GHCi to ignore the presence of the packageA by default until you later ghc-pkg expose ModuelA, but software installed by Cabal will still be able to build against it.
+
+2.Use the {-# LANGUAGE PackageImports #-} pragma, and change your import statement to import "packageB".
+
+3.Use Cabal to build your project, and specify packageB in the Build-depends line.
