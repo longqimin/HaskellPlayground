@@ -13,7 +13,7 @@ tar src dest = do
 	let (base, fileOrDir) = if FP.filename src == FP.empty then (FP.concat $ init pathPieces, last pathPieces) 
 													 else (FP.directory src, FP.filename src) 
 	tmpDir <- getTemporaryDirectory
-	let tmpFile =(decodeString tmpDir) FP.</> dest
+	let tmpFile = decodeString tmpDir FP.</> dest
 	create (encodeString tmpFile) (encodeString base) $ map encodeString [fileOrDir]
 	copyFile (encodeString tmpFile) (encodeString dest)
 
@@ -22,3 +22,6 @@ gzip src dest = do
 	raw <- BL.readFile (encodeString src)
 	let compressed = compress raw 
 	BL.writeFile (encodeString dest) compressed
+
+main :: IO ()
+main = tar (decodeString ".") (decodeString "all.tar")
