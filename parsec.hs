@@ -40,11 +40,17 @@ nesting = do {
 	<|> return 0
 
 word :: Parsec String () String
-word = do {
-	c <- letter
-	; cs <- word <|> return []
-	; return (c:cs)
+word = many1 letter <?> "word"
+
+sentence :: Parsec String () [String]
+sentence = do {
+	ws <- sepBy1 word separator
+	; oneOf ".?!" <?> "end of sentence"
+	; return ws
 }
+
+separator :: Parsec String () ()
+separator = skipMany1 (space <|> char ',' <?> "")
 
 run p input = 
 	case parse p "" input of
