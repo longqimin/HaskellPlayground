@@ -1,3 +1,5 @@
+{-#LANGUAGE OverloadedStrings #-}
+
 import Control.Applicative
 import Data.Csv
 import Data.Text (Text)
