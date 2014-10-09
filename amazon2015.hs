@@ -1,4 +1,4 @@
-module Palidrome where
+module Amazon where
 
 nextSymmetric :: String -> String
 nextSymmetric xs | even $ length xs = if firstHalfR > secondHalf 
