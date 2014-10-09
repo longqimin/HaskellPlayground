@@ -31,7 +31,8 @@ parentPosition p@(x, y) = (x-1, y `div` 3)
 ncaByPosition :: Position -> Position -> Position
 ncaByPosition pa@(da, wa) pb@(db, wb) | da < db = ncaByPosition pa (parentPosition pb)
 ncaByPosition pa@(da, wa) pb@(db, wb) | da > db = ncaByPosition (parentPosition pa) pb
-ncaByPosition pa@(da, wa) pb@(db, wb) | wa `div` 3 == wb `div` 3 = parentPosition pa
+ncaByPosition pa@(da, wa) pb@(db, wb) | wa == wb = pa
+									  | wa `div` 3 == wb `div` 3 = parentPosition pa
 									  | otherwise = ncaByPosition (parentPosition pa) (parentPosition pb)
 
 --nearest common ancestor
